@@ -25,6 +25,10 @@ const Header = ({ isLogin }) => {
             About
           </NavLink>
         </li>
+        {/* <li>
+          <h3>{cart.items}</h3>
+          <p>{cart.price} UAH</p>
+        </li> */}
         {isLogin && (
           <li>
             {/*<a href="/profile">Profile</a>*/}
