@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import About from './pages/About'
 import Home from './pages/Home'
 import Header from './components/Header'
+import Product from './pages/Product'
 
 function App() {
   const [isLogin, setIsLogin] = useState(false)
@@ -26,8 +27,8 @@ function App() {
             {isLogin ? <Profile /> : <Redirect to="/" />} */}
           {/*<Profile isLogin={isLogin} />*/}
           {/* </Route> */}
-          {/* <Route path="/post/:id" component={Post} /> */}
-          <Route path="/" component={Home} exact />
+          <Route path="/product/:id" component={Product} />
+          <Route path="/" component={Home} />
           {/* <Route component={NotFoundPage} /> */}
         </Switch>
       </div>
