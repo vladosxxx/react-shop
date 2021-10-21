@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Cart from '../components/Cart'
 
-const Home = () => {
+const Home = (props) => {
   const [products, setProducts] = useState([])
-  const [cart, setCart] = useState({})
+  const [cart, setCart] = useState({ price: 0, items: 0 })
   const [render, setRender] = useState(false)
 
   useEffect(() => {
@@ -18,22 +18,30 @@ const Home = () => {
       }
     }
     fetchData()
+  }, [render])
+  useEffect(() => {
     const fetchCart = async () => {
       try {
-        const res = await fetch('http://localhost:3004/cart')
-        const json = await res.json()
-        setCart(json)
+        const res = await fetch('http://localhost:3004/cart', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(cart),
+        })
       } catch (error) {
         console.log('Error with server connections')
       }
     }
     fetchCart()
-  }, [render])
-
+  }, [cart])
   const callBackRender = () => {
     setRender((isRender) => !isRender)
   }
-
+  const putIntoCart = (cost) => {
+    setCart((prevState) => ({
+      price: prevState.price + cost,
+      items: prevState.items + 1,
+    }))
+  }
   return (
     <div>
       <h2>Home</h2>
@@ -45,9 +53,8 @@ const Home = () => {
           {product.inStock ? (
             <Cart
               product={product}
-              cart={cart}
               callBackRender={callBackRender}
-              render={render}
+              putIntoCart={putIntoCart}
             />
           ) : (
             <h4>Not available</h4>

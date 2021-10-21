@@ -6,6 +6,7 @@ const Header = ({ isLogin }) => {
   //   const handleGoToPostN = (n) => {
   //     history.push(`/post/${n}`, { text: 'Hello from Router State' })
   //   }
+
   return (
     <div>
       <h1>React Router DOM Tutorial</h1>
