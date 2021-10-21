@@ -18,22 +18,14 @@ const Cart = (props) => {
     putData()
   }, [item])
 
-  function AddToCart() {
+  const addToCart = () => {
     setItem((prevState) => ({
       ...prevState,
       inStock: prevState.inStock > 0 ? prevState.inStock - 1 : 0,
     }))
+    props.putIntoCart(item.price)
+    props.callBackRender()
   }
-  return (
-    <button
-      onClick={() => {
-        AddToCart()
-        props.callBackRender()
-        props.putIntoCart(item.price)
-      }}
-    >
-      Добавить в корзину
-    </button>
-  )
+  return <button onClick={addToCart}>Добавить в корзину</button>
 }
 export default Cart

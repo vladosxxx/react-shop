@@ -4,15 +4,14 @@ import Cart from '../components/Cart'
 
 const Home = (props) => {
   const [products, setProducts] = useState([])
-  const [cart, setCart] = useState({ price: 0, items: 0 })
+  const [cart, setCart] = useState({})
   const [render, setRender] = useState(false)
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('http://localhost:3004/products')
-        const json = await res.json()
-        setProducts(json)
+        await fetch('http://localhost:3004/products')
+          .then((res) => res.json())
+          .then((data) => setProducts(data))
       } catch (error) {
         console.log('Error with server connections')
       }
@@ -22,17 +21,34 @@ const Home = (props) => {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const res = await fetch('http://localhost:3004/cart', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(cart),
-        })
+        await fetch('http://localhost:3004/cart')
+          .then((res) => res.json())
+          .then((data) =>
+            Object.keys(data).length === 0
+              ? setCart({ items: 0, price: 0 })
+              : setCart(data)
+          )
+          .then(() => props.showCart(cart))
       } catch (error) {
         console.log('Error with server connections')
       }
     }
     fetchCart()
-  }, [cart])
+  }, [])
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        await fetch('http://localhost:3004/cart', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(cart),
+        }).then(() => props.showCart(cart))
+      } catch (error) {
+        console.log('Error with server connections')
+      }
+    }
+    fetchCart()
+  }, [render])
   const callBackRender = () => {
     setRender((isRender) => !isRender)
   }

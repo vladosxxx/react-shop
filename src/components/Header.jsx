@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
-const Header = ({ isLogin }) => {
+const Header = ({ isLogin, cart }) => {
   //   const history = useHistory()
 
   //   const handleGoToPostN = (n) => {
@@ -26,10 +26,10 @@ const Header = ({ isLogin }) => {
             About
           </NavLink>
         </li>
-        {/* <li>
+        <li>
           <h3>{cart.items}</h3>
           <p>{cart.price} UAH</p>
-        </li> */}
+        </li>
         {isLogin && (
           <li>
             {/*<a href="/profile">Profile</a>*/}

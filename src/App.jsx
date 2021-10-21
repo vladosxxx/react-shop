@@ -8,14 +8,19 @@ import Product from './pages/Product'
 
 function App() {
   const [isLogin, setIsLogin] = useState(false)
+  const [cart, setCart] = useState({})
 
   const toggleLogin = () => {
     setIsLogin((prevState) => !prevState)
   }
+  const showCart = (dataCart) => {
+    setCart(dataCart)
+    console.log(cart)
+  }
   return (
     <BrowserRouter>
       <div className="App">
-        <Header isLogin={isLogin} />
+        <Header isLogin={isLogin} cart={cart} />
         <div>
           <button onClick={toggleLogin}>
             {isLogin ? 'Log out' : 'Log in'}
@@ -28,7 +33,7 @@ function App() {
           {/*<Profile isLogin={isLogin} />*/}
           {/* </Route> */}
           <Route path="/product/:id" component={Product} />
-          <Route path="/" component={Home} />
+          <Route path="/" render={() => <Home showCart={showCart} />} />
           {/* <Route component={NotFoundPage} /> */}
         </Switch>
       </div>
