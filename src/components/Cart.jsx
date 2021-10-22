@@ -23,7 +23,9 @@ const Cart = (props) => {
       ...prevState,
       inStock: prevState.inStock > 0 ? prevState.inStock - 1 : 0,
     }))
+
     props.putIntoCart(item.price)
+
     props.callBackRender()
   }
   return <button onClick={addToCart}>Добавить в корзину</button>

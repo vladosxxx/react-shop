@@ -4,7 +4,7 @@ import Cart from '../components/Cart'
 
 const Home = (props) => {
   const [products, setProducts] = useState([])
-  const [cart, setCart] = useState({})
+  const [cart, setCart] = useState({ items: 0, price: 0 })
   const [render, setRender] = useState(false)
   useEffect(() => {
     const fetchData = async () => {
@@ -58,23 +58,36 @@ const Home = (props) => {
       items: prevState.items + 1,
     }))
   }
+  function showCartAdd() {}
   return (
     <div>
       <h2>Home</h2>
       {products.map((product) => (
         <div key={product.id}>
-          <Link to={`/product/${product.id}`}>{product.title}</Link>
+          <Link
+            to={{
+              pathname: `/product/${product.id}`,
+              state: { isLogin: props.isLogin, cart },
+            }}
+          >
+            {product.title}
+          </Link>
           <h3>{product.title}</h3>
           <img src={'./pictures/' + product.image} alt={product.title} />
-          {product.inStock ? (
-            <Cart
-              product={product}
-              callBackRender={callBackRender}
-              putIntoCart={putIntoCart}
-            />
+          {props.isLogin ? (
+            product.inStock ? (
+              <Cart
+                product={product}
+                callBackRender={callBackRender}
+                putIntoCart={putIntoCart}
+              />
+            ) : (
+              <h4>Not available</h4>
+            )
           ) : (
-            <h4>Not available</h4>
+            <h4>Чтобы добавить товар в корзину залогинтесь</h4>
           )}
+
           <p>{product.price} UAH</p>
         </div>
       ))}

@@ -26,17 +26,11 @@ const Header = ({ isLogin, cart }) => {
             About
           </NavLink>
         </li>
-        <li>
-          <h3>{cart.items}</h3>
-          <p>{cart.price} UAH</p>
-        </li>
+
         {isLogin && (
           <li>
-            {/*<a href="/profile">Profile</a>*/}
-            {/*<Link to="/profile">Profile</Link>*/}
-            {/* <NavLink activeClassName="link--active" to="/profile">
-              Profile
-            </NavLink> */}
+            <h3>{cart.items} шт.</h3>
+            <p>{cart.price} UAH</p>
           </li>
         )}
       </ul>
