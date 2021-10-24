@@ -28,6 +28,10 @@ const Cart = (props) => {
 
     props.callBackRender()
   }
-  return <button onClick={addToCart}>Добавить в корзину</button>
+  return (
+    <button className="button" onClick={addToCart}>
+      Добавить в корзину
+    </button>
+  )
 }
 export default Cart

@@ -1,0 +1,50 @@
+ul {
+  list-style: none; /*убираем маркеры списка*/
+  margin: 0; /*убираем отступы*/
+  padding-left: 0; /*убираем отступы*/
+  margin-top: 25px; /*делаем отступ сверху*/
+  background: #f44; /*добавляем фон всему меню*/
+  height: 50px; /*задаем высоту*/
+}
+a {
+  text-decoration: none; /*убираем подчеркивание текста ссылок*/
+  background: #ff4444; /*добавляем фон к пункту меню*/
+  color: #fff; /*меняем цвет ссылок*/
+  padding: 0px 15px; /*добавляем отступ*/
+  font-family: arial; /*меняем шрифт*/
+  line-height: 50px; /*ровняем меню по вертикали*/
+  display: block;
+  border-right: 1px solid #f36262; /*добавляем бордюр справа*/
+  -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
+  -o-transition: all 0.3s 0.01s ease;
+  -webkit-transition: all 0.3s 0.01s ease;
+}
+.cart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.cart-icon {
+  height: 20px;
+  margin: 0 3px 0 3px;
+}
+.cart-inside {
+  padding: 0px 15px;
+  line-height: 25px; /*ровняем меню по вертикали*/
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+.menu-right {
+  float: right;
+}
+.cart-inside p {
+  margin: 0 !important;
+}
+a:hover {
+  background: #d43737; /*добавляем эффект при наведении*/
+}
+li {
+  float: left; /*Размещаем список горизонтально для реализации меню*/
+}

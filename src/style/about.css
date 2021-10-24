@@ -1,0 +1,12 @@
+img {
+  width: 500px;
+}
+.about {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+}
+p {
+  margin: 3rem;
+}

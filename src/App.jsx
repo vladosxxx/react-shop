@@ -38,16 +38,13 @@ function App() {
       setOpen(false)
     }
   }
+
   return (
     <>
       <BrowserRouter>
         <div className="App">
-          <Header cart={cart} isLogin={isLogin} />
-          <div>
-            <button onClick={toggleLogin}>
-              {isLogin ? 'Logout' : 'Login'}
-            </button>
-          </div>
+          <Header cart={cart} isLogin={isLogin} toggleLogin={toggleLogin} />
+
           <Switch>
             <Route path="/about" component={About} />
             {/* <Route path="/profile">

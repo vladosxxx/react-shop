@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Cart from '../components/Cart'
+import '../style/home.css'
 
 const Home = (props) => {
   const [products, setProducts] = useState([])
@@ -58,40 +59,41 @@ const Home = (props) => {
       items: prevState.items + 1,
     }))
   }
-  function showCartAdd() {}
   return (
-    <div>
+    <>
       <h2>Home</h2>
-      {products.map((product) => (
-        <div key={product.id}>
-          <Link
-            to={{
-              pathname: `/product/${product.id}`,
-              state: { isLogin: props.isLogin, cart },
-            }}
-          >
-            {product.title}
-          </Link>
-          <h3>{product.title}</h3>
-          <img src={'./pictures/' + product.image} alt={product.title} />
-          {props.isLogin ? (
-            product.inStock ? (
-              <Cart
-                product={product}
-                callBackRender={callBackRender}
-                putIntoCart={putIntoCart}
-              />
-            ) : (
-              <h4>Not available</h4>
-            )
-          ) : (
-            <h4>Чтобы добавить товар в корзину залогинтесь</h4>
-          )}
-
-          <p>{product.price} UAH</p>
-        </div>
-      ))}
-    </div>
+      <div className="home-page">
+        {products.map((product) => (
+          <div className="product-item" key={product.id}>
+            <img src={'/pictures/' + product.image} alt={product.title} />
+            <div className="product-list">
+              <Link
+                to={{
+                  pathname: `/product/${product.id}`,
+                  state: { isLogin: props.isLogin, cart },
+                }}
+              >
+                <h3>{product.title}</h3>
+              </Link>
+              <span className="price">{product.price} UAH</span>
+              {props.isLogin ? (
+                product.inStock ? (
+                  <Cart
+                    product={product}
+                    callBackRender={callBackRender}
+                    putIntoCart={putIntoCart}
+                  />
+                ) : (
+                  <p>Not available</p>
+                )
+              ) : (
+                <p>Чтобы добавить товар в корзину залогинтесь</p>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
   )
 }
 

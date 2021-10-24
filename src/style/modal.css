@@ -1,4 +1,8 @@
 .modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   padding: 30px;
   max-width: 350px;
   width: 100% !important;
@@ -65,13 +69,21 @@ input[type='password']:hover {
   border: 0px;
   color: #fff;
   text-shadow: 0 1px rgba(0, 0, 0, 0.1);
-  background-color: #4d90fe;
+  background-color: #fc5a5a;
   padding: 17px 0px;
   font-family: roboto;
   font-size: 14px;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
 }
-
+.modal__close {
+  display: block;
+  float: right;
+  border: 0px;
+  color: #fc5a5a;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+  font-family: roboto;
+  font-size: 25px;
+}
 .loginmodal-submit:hover {
   /* border: 1px solid #2f5bb7; */
   border: 0px;
@@ -97,21 +109,4 @@ input[type='password']:hover {
 .login-btn {
   text-align: center;
   margin-top: 50px;
-}
-
-.button {
-  line-height: 55px;
-  padding: 0 30px;
-  background: #004a80;
-  color: #fff;
-  display: inline-block;
-  font-family: roboto;
-  text-decoration: none;
-  font-size: 18px;
-}
-
-.button:hover,
-.button:visited {
-  background: #006cba;
-  color: #fff;
 }

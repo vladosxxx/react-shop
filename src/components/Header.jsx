@@ -1,36 +1,36 @@
 import { NavLink } from 'react-router-dom'
+import '../style/menu.css'
 
-const Header = ({ isLogin, cart }) => {
-  //   const history = useHistory()
-
-  //   const handleGoToPostN = (n) => {
-  //     history.push(`/post/${n}`, { text: 'Hello from Router State' })
-  //   }
-
+const Header = ({ isLogin, cart, toggleLogin }) => {
   return (
     <div>
-      <h1>React Router DOM Tutorial</h1>
-      {/* <button onClick={() => handleGoToPostN(3)}>Go to post 3</button> */}
       <ul className="nav">
         <li>
-          {/*<a href="/">Home</a>*/}
-          {/*<Link to="/">Home</Link>*/}
           <NavLink activeClassName="link--active" to="/" exact>
             Home
           </NavLink>
         </li>
         <li>
-          {/*<a href="/about">About</a>*/}
-          {/*<Link to="/about">About</Link>*/}
           <NavLink activeClassName="link--active" to="/about">
             About
           </NavLink>
         </li>
-
+        <li className="menu-right">
+          <a onClick={toggleLogin}>{isLogin ? 'Logout' : 'Login'}</a>
+        </li>
         {isLogin && (
-          <li>
-            <h3>{cart.items} шт.</h3>
-            <p>{cart.price} UAH</p>
+          <li className="menu-right">
+            <div className="cart">
+              <img
+                className="cart-icon"
+                src="shopping-cart.png"
+                alt="shopping cart"
+              />
+              <div className="cart-inside">
+                <p>{cart.items} шт.</p>
+                <p>{cart.price} UAH</p>
+              </div>
+            </div>
           </li>
         )}
       </ul>

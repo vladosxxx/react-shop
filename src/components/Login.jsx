@@ -1,4 +1,3 @@
-import '../style/modal.css'
 const Login = (props) => {
   function errorShow() {
     if (props.login.name === false && props.login.pass === false) {
@@ -13,8 +12,8 @@ const Login = (props) => {
   }
 
   return (
-    <div className="modal">
-      <h1>Login to Your Account</h1>
+    <>
+      <h1>Login</h1>
       <form onSubmit={props.handleSubmit}>
         <input
           type="text"
@@ -36,7 +35,7 @@ const Login = (props) => {
           value="Login"
         />
       </form>
-    </div>
+    </>
   )
 }
 export default Login
