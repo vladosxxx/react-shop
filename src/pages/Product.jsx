@@ -10,21 +10,7 @@ const Product = (props) => {
   const [render, setRender] = useState(false)
   const { id } = useParams()
   console.log(props)
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await fetch('http://localhost:3004/products/' + id, {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-        })
-          .then((res) => res.json())
-          .then((data) => setProduct(data))
-      } catch (error) {
-        console.log('Error with server connections')
-      }
-    }
-    fetchData()
-  }, [render])
+
   const callBackRender = () => {
     setRender((isRender) => !isRender)
   }
@@ -71,25 +57,6 @@ const Product = (props) => {
       error.title === false ||
       error.inStock === false
     ) {
-      const putData = async () => {
-        try {
-          await fetch('http://localhost:3004/products/' + id, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              id: product.id,
-              title: contents.title,
-              description: contents.description,
-              image: product.image,
-              price: product.price,
-              inStock: Math.floor(contents.inStock),
-            }),
-          })
-        } catch (error) {
-          console.log('Error with server connections')
-        }
-      }
-      putData()
       edit()
       callBackRender()
     }
