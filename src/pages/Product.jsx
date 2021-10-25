@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import CartInProduct from '../components/CartInProduct'
 import '../style/product.css'

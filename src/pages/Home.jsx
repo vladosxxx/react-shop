@@ -1,58 +1,26 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Cart from '../components/Cart'
 import '../style/home.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllProducts } from '../../api/products'
+import { setAllProducts } from '../../redux/actions/products'
 
 const Home = (props) => {
-  const [products, setProducts] = useState([])
+  // const [products, setProducts] = useState([])
   const [cart, setCart] = useState({ items: 0, price: 0 })
-  const [render, setRender] = useState(false)
+  // const [render, setRender] = useState(false)
+  const products = useSelector((store) => store.allProducts.products)
+  const dispatch = useDispatch()
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await fetch('http://localhost:3004/products')
-          .then((res) => res.json())
-          .then((data) => setProducts(data))
-      } catch (error) {
-        console.log('Error with server connections')
-      }
-    }
-    fetchData()
-  }, [render])
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        await fetch('http://localhost:3004/cart')
-          .then((res) => res.json())
-          .then((data) =>
-            Object.keys(data).length === 0
-              ? setCart({ items: 0, price: 0 })
-              : setCart(data)
-          )
-          .then(() => props.showCart(cart))
-      } catch (error) {
-        console.log('Error with server connections')
-      }
-    }
-    fetchCart()
+    getAllProducts().then((products) => {
+      dispatch(setAllProducts(products))
+    })
   }, [])
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        await fetch('http://localhost:3004/cart', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(cart),
-        }).then(() => props.showCart(cart))
-      } catch (error) {
-        console.log('Error with server connections')
-      }
-    }
-    fetchCart()
-  }, [render])
-  const callBackRender = () => {
-    setRender((isRender) => !isRender)
-  }
+
+  // const callBackRender = () => {
+  //   setRender((isRender) => !isRender)
+  // }
   const putIntoCart = (cost) => {
     setCart((prevState) => ({
       price: prevState.price + cost,
@@ -78,11 +46,7 @@ const Home = (props) => {
               <span className="price">{product.price} UAH</span>
               {props.isLogin ? (
                 product.inStock ? (
-                  <Cart
-                    product={product}
-                    callBackRender={callBackRender}
-                    putIntoCart={putIntoCart}
-                  />
+                  <Cart product={product} putIntoCart={putIntoCart} />
                 ) : (
                   <p>Not available</p>
                 )

@@ -1,3 +1,5 @@
+import React from 'react'
+
 const Login = (props) => {
   function errorShow() {
     if (props.login.name === false && props.login.pass === false) {
