@@ -1,28 +1,21 @@
 import { ActionTypes } from '../../constants/actionTypes'
-import { getAllProducts, getProductById } from '../../api/products'
 
-export const setAllProducts = () => (dispatch, state) => {
-  getAllProducts().then((products) => {
-    dispatch({
-      type: ActionTypes.SET_PRODUCTS,
-      payload: products,
-    })
-
-    console.log(state())
-  })
+export const setAllProducts = (productsData) => {
+  return {
+    type: ActionTypes.SET_PRODUCTS,
+    payload: productsData,
+  }
 }
 
-export const setSelectedProduct = (productId) => (dispatch) => {
-  return getProductById(productId).then((product) => {
-    dispatch({
-      type: ActionTypes.SET_SELECTED_PRODUCT,
-      payload: product,
-    })
-  })
+export const setSelectedProduct = (productData) => {
+  return {
+    type: ActionTypes.SET_SELECTED_PRODUCT,
+    payload: productData,
+  }
 }
 
-export const clearSelectedProduct = () => (dispatch) => {
-  dispatch({
+export const clearSelectedProduct = () => {
+  return {
     type: ActionTypes.CLEAR_SELECTED_PRODUCT,
-  })
+  }
 }

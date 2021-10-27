@@ -19,28 +19,19 @@ a {
   -o-transition: all 0.3s 0.01s ease;
   -webkit-transition: all 0.3s 0.01s ease;
 }
-.cart {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-}
-.cart-icon {
-  height: 20px;
-  margin: 0 3px 0 3px;
-}
-.cart-inside {
-  padding: 0px 15px;
-  line-height: 25px; /*ровняем меню по вертикали*/
+/* .cart {
   display: flex;
   flex-direction: column;
-  color: #fff;
+  justify-content: center;
+} */
+.cart-icon {
+  vertical-align: middle;
+  height: 20px;
+  width: 25px;
 }
+
 .menu-right {
   float: right;
-}
-.cart-inside p {
-  margin: 0 !important;
 }
 a:hover {
   background: #d43737; /*добавляем эффект при наведении*/

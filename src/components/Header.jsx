@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import '../style/menu.css'
 
-const Header = ({ isLogin, cart, toggleLogin }) => {
+const Header = ({ isLogin, toggleLogin, toggleCart }) => {
   return (
     <div>
       <ul className="nav">
@@ -21,17 +21,13 @@ const Header = ({ isLogin, cart, toggleLogin }) => {
         </li>
         {isLogin && (
           <li className="menu-right">
-            <div className="cart">
+            <a onClick={toggleCart} className="cart">
               <img
                 className="cart-icon"
                 src="shopping-cart.png"
                 alt="shopping cart"
               />
-              <div className="cart-inside">
-                <p>{cart.items} шт.</p>
-                <p>{cart.price} UAH</p>
-              </div>
-            </div>
+            </a>
           </li>
         )}
       </ul>

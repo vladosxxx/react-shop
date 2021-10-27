@@ -1,19 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import CartInProduct from '../components/CartInProduct'
+import { useDispatch, useSelector } from 'react-redux'
 import '../style/product.css'
+import { getProductById } from '../api/product'
+import {
+  setSelectedProduct,
+  clearSelectedProduct,
+} from '../redux/actions/products'
 
 const Product = (props) => {
-  const [product, setProduct] = useState({})
+  // const [product, setProduct] = useState({})
   const [contents, setContent] = useState(null)
   const [error, setError] = useState({})
-  const [render, setRender] = useState(false)
+  // const [render, setRender] = useState(false)
+
   const { id } = useParams()
   console.log(props)
+  const product = useSelector((store) => store.selectedProduct.product)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    getProductById(id).then((product) => {
+      dispatch(setSelectedProduct(product))
+    })
+  }, [id])
+  // useEffect(() => {
+  //   getProductById(id).then((product) => {
+  //     dispatch(setSelectedProduct(product))
+  //   })
 
-  const callBackRender = () => {
-    setRender((isRender) => !isRender)
-  }
+  //   return () => {
+  //     dispatch(clearSelectedProduct())
+  //   }
+  // }, [id])
+  // const callBackRender = () => {
+  //   setRender((isRender) => !isRender)
+  // }
   const validInputs = (name, value) => {
     setError((prevState) => ({
       ...prevState,
@@ -32,7 +53,7 @@ const Product = (props) => {
     if (name === 'description') {
       value = validTextArea(name, value)
     }
-    if (name === 'title' || name === 'inStock') {
+    if (name === 'title') {
       value = validInputs(name, value)
     }
     setContent((prevState) => ({
@@ -47,18 +68,13 @@ const Product = (props) => {
       setContent({
         title: product.title,
         description: product.description,
-        inStock: product.inStock,
       })
     }
   }
   const save = () => {
-    if (
-      error.description === false ||
-      error.title === false ||
-      error.inStock === false
-    ) {
+    if (error.description === false || error.title === false) {
       edit()
-      callBackRender()
+      // callBackRender()
     }
   }
   return (
@@ -78,7 +94,7 @@ const Product = (props) => {
             )}
             <div className="product">
               <div className="left-product">
-                <img src={'/pictures/' + product.image} alt={product.title} />
+                <img src={product.image} alt={product.title} />
               </div>
               <div className="right-product">
                 <span className="price">Цена: {product.price} UAH</span>
@@ -93,19 +109,6 @@ const Product = (props) => {
                 {error.description && (
                   <p className="error">Вы ввели больше 600 символов</p>
                 )}
-                <p>
-                  Количество на складе:{' '}
-                  <input
-                    className="input-number"
-                    name="inStock"
-                    type="number"
-                    value={contents.inStock}
-                    onChange={hendler}
-                  />
-                  {error.inStock && (
-                    <p className="error">Вы ввели больше 30 символов</p>
-                  )}
-                </p>
               </div>
             </div>
 
@@ -118,19 +121,18 @@ const Product = (props) => {
             <h3>{product.title}</h3>
             <div className="product">
               <div className="left-product">
-                <img src={'/pictures/' + product.image} alt={product.title} />
+                <img src={product.image} alt={product.title} />
               </div>
               <div className="right-product">
                 <span className="price">Цена: {product.price} UAH</span>
                 <p>{product.description}</p>
-                <p>Количество на складе: {product.inStock}</p>
               </div>
             </div>
           </>
         )}
         {props.location.state.isLogin && !contents ? (
           <>
-            <CartInProduct product={product} callBackRender={callBackRender} />
+            {/* <CartInProduct product={product} callBackRender={callBackRender} /> */}
             <button className="button" onClick={edit}>
               Edit
             </button>

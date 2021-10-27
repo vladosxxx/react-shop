@@ -8,6 +8,12 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+.title-product {
+  line-height: 1.4em;
+}
+.title-link {
+  padding: 15px;
+}
 .product-item {
   width: 300px;
   text-align: center;
@@ -20,9 +26,13 @@
 .product-item:hover {
   border-bottom: 2px solid #fc5a5a;
 }
+.container {
+  width: 300px;
+  height: 500px !important;
+}
 .product-item img {
-  display: block;
   width: 100%;
+  height: auto;
 }
 .product-list {
   background: #fafafa;

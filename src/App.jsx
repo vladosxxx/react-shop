@@ -7,18 +7,20 @@ import Header from './components/Header'
 import Product from './pages/Product'
 import Modal from './components/Modal'
 import Login from './components/Login'
+import ModalCart from './components/ModalCart'
+import Cart from './components/Cart'
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false)
+  const [isLogin, setIsLogin] = useState(true)
   const [open, setOpen] = useState(false)
-  const [cart, setCart] = useState({})
+  const [openCart, setOpenCart] = useState(false)
   const [login, setLogin] = useState({})
 
   const toggleLogin = () => {
     isLogin ? setIsLogin(false) : setOpen((prevState) => !prevState)
   }
-  const showCart = (dataCart) => {
-    setCart(dataCart)
+  const toggleCart = () => {
+    setOpenCart((prevState) => !prevState)
   }
   const handlerOnChange = ({ target: { name, value } }) => {
     setLogin((prevState) => ({
@@ -43,20 +45,16 @@ function App() {
     <>
       <BrowserRouter>
         <div className="App">
-          <Header cart={cart} isLogin={isLogin} toggleLogin={toggleLogin} />
+          <Header
+            isLogin={isLogin}
+            toggleLogin={toggleLogin}
+            toggleCart={toggleCart}
+          />
 
           <Switch>
             <Route path="/about" component={About} />
-            {/* <Route path="/profile">
-            {isLogin ? <Profile /> : <Redirect to="/" />} */}
-            {/*<Profile isLogin={isLogin} />*/}
-            {/* </Route> */}
             <Route path="/product/:id" component={Product} />
-            <Route
-              path="/"
-              render={() => <Home showCart={showCart} isLogin={isLogin} />}
-            />
-            {/* <Route component={NotFoundPage} /> */}
+            <Route path="/" render={() => <Home isLogin={isLogin} />} />
           </Switch>
         </div>
       </BrowserRouter>
@@ -67,6 +65,9 @@ function App() {
           login={login}
         />
       </Modal>
+      <ModalCart openCart={openCart} onClose={() => setOpenCart(false)}>
+        <Cart />
+      </ModalCart>
     </>
   )
 }
