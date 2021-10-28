@@ -4,9 +4,8 @@ import { getCart } from '../api/cart'
 import { setCart } from '../redux/actions/cart'
 import { getAllProducts } from '../api/product'
 import { setAllProducts } from '../redux/actions/products'
-import { Link } from 'react-router-dom'
 
-const Cart = (props) => {
+const Cart = () => {
   const [isLoading, setLoading] = useState(false)
   const [cartId, setCartId] = useState([])
   const [cartProd, setCartProd] = useState([])
@@ -14,45 +13,44 @@ const Cart = (props) => {
   const cart = useSelector((store) => store.cart.cart)
   const dispatch = useDispatch()
 
-  const filterId = () => {
-    let findId = cart.products.map((item) => item.productId)
-    setCartId(findId)
-  }
-  // console.log('CART ID', cartId)
-
-  const filterProduct = () => {
-    let newArrProd = products.filter((item) => !cartId.includes(item.id))
-    setCartProd(newArrProd)
-    // console.log('cartIDID', cartId)
-  }
-
   useEffect(() => {
     setLoading(true)
-    getCart()
-      .then((cart) => {
-        dispatch(setCart(cart))
-      })
-      .then(() => getAllProducts())
-      .then((products) => {
-        dispatch(setAllProducts(products))
-      })
-      .finally(() => {
-        filterId()
-        setLoading(false)
-      })
+    getCart().then((cart) => {
+      dispatch(setCart(cart))
+    })
   }, [])
-  console.log('cart: ', cart)
+  useEffect(() => {
+    getAllProducts().then((products) => {
+      dispatch(setAllProducts(products))
+    })
+  }, [])
+  useEffect(() => {
+    let findId = cart.products.map((item) => item.productId)
+    setCartId(findId)
+    let newArrProd = products.filter((item) => findId.includes(item.id))
+    newArrProd = newArrProd.map((item, index) => ({
+      ...item,
+      price: item.price * cart.products[index].quantity,
+      quantity: cart.products[index].quantity,
+    }))
+    setCartProd(newArrProd)
+    setLoading(false)
+  }, [cart, products])
 
   return (
     <div>
       {isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        products.map((prod) => (
+        cartProd.map((prod) => (
           <div key={prod.id}>
-            <div>
-              <h2>{prod.title}</h2>
-              {/* <h3>{prod.description}</h3> */}
+            <div className="container-cart">
+              <img src={prod.image} alt={prod.title} />
+            </div>
+            <h3>{prod.title}</h3>
+            <div className="price-cart">
+              <p>Количество товара: {prod.quantity}</p>
+              <p>Стоимость: {prod.price}</p>
             </div>
           </div>
         ))
