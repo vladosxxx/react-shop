@@ -1,3 +1,6 @@
+h5 {
+  margin: 0 !important;
+}
 .modal-cart {
   position: fixed;
   right: 0;
@@ -12,21 +15,26 @@
   font-family: roboto;
   z-index: 9999;
 }
+.title-cart {
+  text-align: center;
+}
 .container-cart {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  border-radius: 15%;
+  background-color: white;
   height: 100px;
   margin: 20px;
 }
 .container-cart img {
   height: 60px;
   width: auto;
+  padding-left: 10px;
 }
-.container-cart .rice-cart {
+.price-cart {
   display: flex;
   flex-direction: column;
-}
-.rice-cart p {
-  margin: 0 !important;
+  padding-right: 10px;
 }
