@@ -15,3 +15,11 @@ export const getProductById = async (productId) => {
 
   return response.json()
 }
+
+export const updateProductById = async (productId, content) => {
+  const response = await fetch(`${GET_ALL_PRODUCTS_URL}/${productId}`, {
+    method: 'PUT',
+    body: JSON.stringify(content),
+  })
+  return response.json()
+}

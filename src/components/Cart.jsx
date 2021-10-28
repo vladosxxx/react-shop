@@ -4,6 +4,7 @@ import { getCart } from '../api/cart'
 import { setCart } from '../redux/actions/cart'
 import { getAllProducts } from '../api/product'
 import { setAllProducts } from '../redux/actions/products'
+import '../style/cart.css'
 
 const Cart = () => {
   const [isLoading, setLoading] = useState(false)
@@ -18,12 +19,12 @@ const Cart = () => {
     getCart().then((cart) => {
       dispatch(setCart(cart))
     })
-  }, [])
+  }, [dispatch])
   useEffect(() => {
     getAllProducts().then((products) => {
       dispatch(setAllProducts(products))
     })
-  }, [])
+  }, [dispatch])
   useEffect(() => {
     let findId = cart.products.map((item) => item.productId)
     setCartId(findId)
@@ -42,18 +43,19 @@ const Cart = () => {
       {isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        cartProd.map((prod) => (
-          <div key={prod.id}>
-            <div className="container-cart">
+        <>
+          <h3>Shopping Cart</h3>
+          {cartProd.map((prod) => (
+            <div key={prod.id} className="container-cart">
               <img src={prod.image} alt={prod.title} />
+              <h3>{prod.title}</h3>
+              <div className="price-cart">
+                <h5>{prod.quantity} шт.</h5>
+                <h5>{prod.price} USD</h5>
+              </div>
             </div>
-            <h3>{prod.title}</h3>
-            <div className="price-cart">
-              <p>Количество товара: {prod.quantity}</p>
-              <p>Стоимость: {prod.price}</p>
-            </div>
-          </div>
-        ))
+          ))}
+        </>
       )}
     </div>
   )

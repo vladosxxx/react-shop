@@ -17,7 +17,7 @@
 .product-item {
   width: 300px;
   text-align: center;
-  margin: 0 auto;
+  margin: 20px auto 20px auto;
   border-bottom: 2px solid #f5f5f5;
   background: white;
   font-family: 'Open Sans';

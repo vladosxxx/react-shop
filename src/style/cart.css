@@ -2,7 +2,7 @@
   position: fixed;
   right: 0;
   top: 0;
-  width: 80vw;
+  width: 90vw;
   height: 100vh;
   background-color: #f7f7f7;
   margin: 0 auto;
@@ -11,4 +11,22 @@
   overflow: hidden;
   font-family: roboto;
   z-index: 9999;
+}
+.container-cart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100px;
+  margin: 20px;
+}
+.container-cart img {
+  height: 60px;
+  width: auto;
+}
+.container-cart .rice-cart {
+  display: flex;
+  flex-direction: column;
+}
+.rice-cart p {
+  margin: 0 !important;
 }
